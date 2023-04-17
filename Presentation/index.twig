@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+		<script src="script.js" defer></script>
+		<title>dish.list</title>
+	</head>
+	<body>
+		<div class="wrapper">
+			<header>
+				<h2 class="logo">dish.list</h2>
+				<nav>
+					<ul>
+						<li><a href="index.php">home</a></li>
+						<li><a href="overzicht.php">overzicht</a></li>
+					</ul>
+				</nav>
+			</header>
+			<section class="banner"></section>
+			<button onclick="hideInputFields()" class="button" id="input-button-hide">Nieuw gerecht</button>
+			<section class="input-field" id="input">
+				<form action="" method="POST">
+					<div>
+						<h3>Geef een gerecht in:</h3>
+						<input type="text" id="gerecht" name="naam" required>
+					</div>
+					<div>
+						<h3>Geef een datum in:</h3>
+						<input type="date" name="datum" id="datum" required>
+					</div>
+					<div class="input-fields-one">
+						<div>
+							<h3>Selecteer een categorie:</h3>
+							<select name="categorieId" id="categorieId" required>
+								{% for categorie in categorieen %}
+									<option value="{{categorie.id}}">{{categorie.naam}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div>
+							<h3>Geef een waardering:</h3>
+							<select name="waardering" id="waardering" required>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</div>
+					</div>
+					<div>
+						<h3>Bron recept:</h3>
+						<input type="text" id="bron" name="bron">
+					</div>
+					<div>
+						<h3>Bijkomende info:</h3>
+						<textarea name="info" id="info"></textarea>
+					</div>
+					<input type="submit" value="Opslaan" class="button" id="opslaan" name="btnOpslaan">
+				</form>
+			</section>
+			<section>
+				<h3>Laatste gerechten</h3>
+				<table id="gerechten">
+					<thead>
+						<th>Gerecht</th>
+						<th>Datum</th>
+						<th>Categorie</th>
+						<th>Waardering</th>
+						<th class="deleteHeader"></th>
+					</thead>
+					<tbody>
+						{% set break = false %}
+						{% set teller = 0 %}
+						{% for gerecht in gerechten %}
+							{% if break == false %}
+								{% set teller = teller + 1 %}
+								{% if teller == 10 %}
+									{% set break = true %}
+								{% else %}
+									<tr>
+										<td>
+											<a href="detailPagina.php?selectie={{gerecht.id}}">{{gerecht.naam}}</a>
+										</td>
+										<td>
+											{{gerecht.datum}}
+										</td>
+										<td>
+											{% for categorie in categorieen %}
+												{% if categorie.id == gerecht.categorieId %}
+													{{categorie.naam}}
+												{% endif %}
+											{% endfor %}
+										</td>
+										<td>
+											{% set k = gerecht.waardering - 1 %}
+											{% for i in 0..k %}
+												<img src="img/star.png" alt="" class="star">
+											{% endfor %}
+										</td>
+										<td class="delete">
+											<form action="" method="POST">
+												<input type="hidden" name="id" value="{{gerecht.id}}"/>
+												<input type="submit" value="X" name="btnVerwijderen" id="btnVerwijderen">
+											</form>
+
+										</td>
+									</tr>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</tbody>
+				</table>
+			</section>
+		</div>
+		<footer>
+			<h3>dish.list</h3>
+		</footer>
+	</body>
+</html>

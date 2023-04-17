@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<script src="/dishlist.js" defer></script>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="style.css">
+		<title>dish.list</title>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<header>
+				<h2 class="logo">dish.list</h2>
+				<nav>
+					<ul>
+						<li><a href="index.php">home</a></li>
+						<li><a href="overzicht.php">overzicht</a></li>
+					</ul>
+				</nav>
+			</header>
+			<section class="search">
+				<form action="" class="search-form" method="POST">
+					<input type="text" name="search" id="search" placeholder="Zoeken...">
+					<input type="submit" value="Zoeken" class="button" name="btnSearch">
+				</form>
+			</section>
+			<div class="content">
+				<aside>
+					<div>
+						<h3>Categorie</h3>
+						<form action="" class="filters" method="POST" name="filters">
+							<select name="categorieId" id="categorieId">
+								{% for categorie in categorieen %}
+									<option value="{{categorie.id}}">{{categorie.naam}}</option>
+								{% endfor %}
+							</select>
+							<input type="submit" value="Filteren" class="button" name="btnFilter">
+						</form>
+						<form action="" method="POST" name="sorteer">
+							<select name="sorteerOpties" id="" class="sorteerOpties">
+								<option value="hoog">Waardering - hoog</option>
+								<option value="laag">Waardering - laag</option>
+								<option value="nieuw">Nieuw naar oud</option>
+								<option value="oud">Oud naar nieuw</option>
+							</select>
+							<input type="submit" value="Sorteren" class="button" name="btnSorteer">
+						</form>
+						<form action="" method="POST">
+							<h3>Op datum</h3>
+							<input type="date" name="datum" id="datum" required>
+							<input type="submit" value="Zoeken" class="button" name="btnDatum">
+						</form>
+						<br>
+						<div>
+							<a href="overzicht.php?action=reset" class="button reset">Reset</a>
+						</div>
+					</div>
+				</aside>
+				<main>
+					<section class="overzicht">
+						<h3>Overzicht</h3>
+						{% if message == "" %}
+							<table id="gerechten">
+								<thead>
+									<th>Gerecht</th>
+									<th>Datum</th>
+									<th>Categorie</th>
+									<th>Waardering</th>
+									<th class="deleteHeader"></th>
+								</thead>
+								<tbody>
+
+									{% set break = false %}
+									{% set teller = 0 %}
+									{% for gerecht in gerechten %}
+										{% if break == false %}
+											{% set teller = teller + 1 %}
+											{% if teller == 10 %}
+												{% set break = true %}
+											{% else %}
+												<tr>
+													<td>
+														<a href="detailPagina.php?selectie={{gerecht.id}}">{{gerecht.naam}}</a>
+													</td>
+													<td>
+														{{gerecht.datum}}
+													</td>
+													<td>
+														{% for categorie in categorieen %}
+															{% if categorie.id == gerecht.categorieId %}
+																{{categorie.naam}}
+															{% endif %}
+														{% endfor %}
+													</td>
+													<td>
+														{% set k = gerecht.waardering - 1 %}
+														{% for i in 0..k %}
+															<img src="img/star.png" alt="" class="star">
+														{% endfor %}
+													</td>
+													<td class="delete">
+														<form action="" method="POST">
+															<input type="hidden" name="id" value="{{gerecht.id}}"/>
+															<input type="submit" value="X" name="btnVerwijderen" id="btnVerwijderen">
+														</form>
+													</td>
+												</tr>
+											{% endif %}
+										{% endif %}
+									{% endfor %}
+								</tbody>
+							</tbody>
+						</table>
+					{% else %}
+						<h3>{{message}}</h3>
+					{% endif %}
+				</section>
+			</main>
+		</div>
+	</body>
+</html></div><footer>
+<h3>dish.list</h3></footer></body></html>

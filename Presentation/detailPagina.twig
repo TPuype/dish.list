@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<script src="/dishlist.js" defer></script>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+		<title>dish.list</title>
+	</head>
+
+	<body>
+		<div class="wrapper">
+		<header>
+				<h2 class="logo">dish.list</h2>
+				<nav>
+					<ul>
+						<li><a href="index.php">home</a></li>
+						<li><a href="overzicht.php">overzicht</a></li>
+					</ul>
+				</nav>
+			</header>
+			<main>
+				<section>
+					<h1>{{gerecht.naam}}</h1>
+				</section>
+				<div>
+					<h3>Je hebt dit gerecht gegeten op:
+						{{gerecht.datum}}</h3>
+				</div>
+				<section class="gerecht-details">
+					<div>
+						<p>Categorie:
+							{{categorie}}
+						</p>
+					</div>
+					<div>
+						<p>Waardering:</p>
+						<br>
+						{% set k = gerecht.waardering - 1 %}
+						{% for i in 0..k %}
+							<img src="img/star.png" alt="" class="star">
+						{% endfor %}
+					</div>
+					<div>
+						<p>Bron recept:
+						</p>
+						<br>
+						{% if gerecht.bron is empty %}
+							<p>Geen recept beschikbaar</p>
+						{% else %}
+							<p>{{gerecht.bron}}</p>
+						{% endif %}
+					</div>
+					<div>
+						<p>Bijkomende info:
+						</p>
+						<br>
+						{% if gerecht.info is empty %}
+							<p>Geen info beschikbaar</p>
+						{% else %}
+							<p>{{gerecht.info}}</p>
+						{% endif %}
+					</div>
+				</section>
+				<section>
+					<form action="detailBewerkPagina.php" method="POST">
+						<input type="hidden" name="id" value="{{gerecht.id}}"/>
+						<input type="submit" value="Bewerken" name="btnBewerken" id="btnBewerekn" class="button">
+					</form>
+				</main>
+			</div>
+			<span id="laadFout" hidden>Er is een fout opgetreden bij het ophalen van de data</span>
+			<footer>
+				<h3>dish.list</h3>
+			</footer>
+		</body>
+	</body>
+</html>

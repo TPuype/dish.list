@@ -1,0 +1,225 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #222222;
+    height: 100%;
+    background: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.wrapper {
+    width: 60%;
+    margin: 0 auto;
+    background: white;
+}
+
+.banner {
+    margin-top: 0;
+    height: 300px;
+    text-align: center;
+    background: #F7D201;
+    color: white;
+    background-image: url("img/estudio-bloom-ezqnxsqUZ80-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    margin-top: 1em;
+    margin-bottom: 0.5em
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 5% 0 0 0;
+    text-align: right;
+}
+
+nav ul li {
+    display: inline;
+    padding-left: 1em;
+}
+
+section {
+    height: 20%;
+    margin: 5% 0;
+}
+
+h2 {
+    font-size: 16 pt;
+}
+
+h3 {
+    margin-bottom: 1em;
+}
+
+input[type=text],
+input[type=date],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 1% 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+
+}
+
+#input {
+    display: none;
+}
+
+.input-field div {
+    margin-bottom: 2em;
+}
+
+.input-fields-one {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+}
+
+#info {
+    width: 100%;
+    height: 30vh;
+}
+
+.button {
+    width: 100%;
+    padding: 2% 2%;
+    margin: 1% 0;
+    font-size: 13pt;
+    border: none;
+    border-radius: 0;
+    color: white;
+    background: #9067C6;
+}
+
+.button:hover {
+    background: #F7D201;
+    transition: 0.3s;
+    transition-timing-function: ease;
+    cursor: pointer;
+}
+
+
+#btnVerwijderen {
+    width: 100%;
+    height: 100%;
+    border: none;
+    color: #ccc;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.delete {
+    background-color: #9067C6;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: #C81D25;
+}
+
+#gerechten {
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
+#gerechten td,
+#gerechten th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#gerechten tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#gerechten tr:hover {
+    background-color: #ddd;
+}
+
+#gerechten th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #F7D201;
+}
+
+a {
+    text-decoration: none;
+    color: #9067C6;
+    transition: 0.3s;
+}
+
+.star {
+    width: 1.5em;
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    background-color: #9067C6;
+    color: white;
+    padding: 1em 0 1em 0;
+}
+
+footer h3 {
+    margin: 0;
+}
+
+/*  DetailPagina */
+
+.gerecht-details div {
+    margin-bottom: 2em;
+}
+
+.input-edit {
+    display: block;
+}
+
+.update-result p {
+    margin-bottom: 4em;
+}
+.overzicht{
+    margin-top: 0;
+}
+.content{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 2em;
+}
+
+.content select, .content .button, .content input[type=date]{
+    margin-bottom: 2em;
+}
+
+.reset{
+    display: inline-block;
+    width: 100%;
+    background-color: #F7D201;
+    color: #222222;
+    text-align: center;
+    padding: 0;
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+}
+
+.reset:hover{
+    background-color:#9067C6;
+    color: white;
+}

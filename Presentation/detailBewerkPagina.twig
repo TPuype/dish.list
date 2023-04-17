@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<script src="/dishlist.js" defer></script>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+		<script src="script.js" defer></script>
+		<title>dish.list</title>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<header>
+				<h2 class="logo">dish.list</h2>
+				<nav>
+					<ul>
+						<li><a href="index.php">home</a></li>
+						<li><a href="overzicht.php">overzicht</a></li>
+					</ul>
+				</nav>
+			</header>
+			{% if updated == false  %}
+				<section class="input-field" id="input-edit">
+					<form action="" method="POST">
+						<div>
+							<h3>Naam aanpassen:</h3>
+							<input type="text" id="gerecht" name="naam" value="{{gerecht.naam}}" required>
+						</div>
+						<div>
+							<h3>Geef een datum in:</h3>
+							<input type="date" name="datum" id="datum" value="{{gerecht.datum}}" required>
+						</div>
+						<div class="input-fields-one">
+							<div>
+								<h3>Selecteer een categorie:</h3>
+								<select name="categorieId" id="categorieId" required>
+									{% for categorie in categorieen %}
+										{% if gerecht.categorieId == categorie.id %}
+											<option value="{{categorie.id}}" selected>{{categorie.naam}}</option>
+											{% else %}
+										{% endif %}
+										<option value="{{categorie.id}}">{{categorie.naam}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div>
+								<h3>Geef een waardering:</h3>
+								<select name="waardering" id="waardering" required>
+									{% set k = 5 %}
+									{% for i in 1..k %}
+										{% if k == gerecht.waardering %}
+											<option value="{{i}}" selected>{{i}}</option>
+										{% else %}
+											<option value="{{i}}">{{i}}</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div>
+							<h3>Bron recept:</h3>
+							<input type="text" id="bron" name="bron" value="{{gerecht.bron}}">
+						</div>
+						<div>
+							<h3>Bijkomende info:</h3>
+							<textarea name="info" id="info">{{gerecht.info}}</textarea>
+						</div>
+						<input type="hidden" name="id" value="{{gerecht.id}}"/>
+						<input type="submit" value="Opslaan" class="button" id="opslaan" name="opslaan">
+					</form>
+				</section>
+			{% else %}
+				<section class="update-result">
+					<p>Gerecht is aangepast</p>
+					<br>
+					<a href="index.php" class="button">Terug</a>
+				</section>
+			{% endif %}
+		</div>
+		<footer class="fixed-footer">
+			<h3>dish.list</h3>
+		</footer>
+	</body>
+</html>
