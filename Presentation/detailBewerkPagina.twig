@@ -54,7 +54,7 @@
 								<select name="waardering" id="waardering" required>
 									{% set k = 5 %}
 									{% for i in 1..k %}
-										{% if k == gerecht.waardering %}
+										{% if i == gerecht.waardering %}
 											<option value="{{i}}" selected>{{i}}</option>
 										{% else %}
 											<option value="{{i}}">{{i}}</option>

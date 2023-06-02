@@ -10,7 +10,7 @@ class Gerecht
     private $naam;
     private $categorieId;
     private $datum;
-    public $waardering;
+    public  $waardering;
     private $bron;
     private $info;
 

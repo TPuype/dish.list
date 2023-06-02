@@ -26,8 +26,14 @@ $categorieen = $categorieService->getAll();
 
 session_start();
 
+$criteria = [];
+
 if (!isset($_SESSION["gerechten"])) {
     $_SESSION["gerechten"] = $gerechten;
+}
+
+if (!isset($_SESSION["critera"])) {
+    $_SESSION["criteria"] = $criteria;
 }
 
 if (isset($_GET["action"]) && $_GET["action"] == "reset") {
@@ -49,10 +55,17 @@ if (isset($_POST["btnFilter"])) {
         $lijst = $gerechtService->zoekGerechtOpCategorie((int) $_POST["categorieId"]);
         $_SESSION["gerechten"] = $lijst;
         $_SESSION["categorieId"] = $_POST["categorieId"];
+
     } catch (GeenResultaatException $ex) {
         $message = "Geen resultaten gevonden.";
     }
 }
+
+function sortFunction($a, $b)
+{
+    return strtotime($a[1]) - strtotime($b[1]);
+}
+
 
 if (isset($_POST["btnSorteer"])) {
     switch ($_POST["sorteerOpties"]) {
@@ -64,6 +77,16 @@ if (isset($_POST["btnSorteer"])) {
         case "laag":
             usort($_SESSION["gerechten"], function ($a, $b) {
                 return $a->waardering - $b->waardering;
+            });
+            break;
+        case "nieuw":
+            usort($_SESSION["gerechten"], function ($a, $b) {
+                return strtotime($b->getDatum()) - strtotime($a->getDatum());
+            });
+            break;
+        case "oud":
+            usort($_SESSION["gerechten"], function ($a, $b) {
+                return strtotime($a->getDatum()) - strtotime($b->getDatum());
             });
             break;
     }
@@ -80,12 +103,7 @@ if (isset($_POST["btnDatum"])) {
 
 if (isset($_POST["btnVerwijderen"])) {
     $gerechtService->gerechtVerwijderen((int) $_POST["id"]);
-    try {
-        $lijst = $gerechtService->zoekGerechtOpCategorie((int) $_SESSION["categorieId"]);
-        $_SESSION["gerechten"] = $lijst;
-    } catch (GeenResultaatException $ex) {
-        $message = "Record kan niet verwijderd worden.";
-    }
+    header("location: overzicht.php");
 }
 
 print $twig->render(
